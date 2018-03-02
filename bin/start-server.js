@@ -1,7 +1,13 @@
 #!/usr/bin/env node
 
-const server = require('..');
+const app = require('..');
 
-server.listen(8000);
+let server = app.listen(8000);
 
 console.log('Hosting server at http://localhost:8000/');
+
+process.once('SIGINT', () => {
+    console.log('Shutting down server...');
+
+    server.close(() => process.exit());
+});

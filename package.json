@@ -17,7 +17,7 @@
     "bugs": {
         "url": "https://github.com/uavaustin/manual-image-rec/issues"
     },
-    "main": "lib/server.js",
+    "main": "lib/app.js",
     "dependencies": {
         "express": "^4.16.2",
         "react": "^16.0.0",
