@@ -1,0 +1,6 @@
+{
+  "presets": [
+    ["env", {"targets": "last 2 versions, > 1%"}],
+    "react"
+  ],
+}
