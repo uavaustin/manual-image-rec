@@ -44,6 +44,7 @@ export default class Classifier extends React.Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleClear = this.handleClear.bind(this)
   }
 
   handleChange(event, data) {
@@ -54,7 +55,15 @@ export default class Classifier extends React.Component {
 
   handleSubmit() {
     const {shape, color, alphanumeric} = this.state
-    console.log(shape, color, alphanumeric)
+    console.log(this.state.shape, this.state.color, this.state.alphanumeric)
+  }
+
+  handleClear(){
+    this.setState({
+      shape: '',
+      color: '',
+      alphanumeric: ''
+    })
   }
 
   render() {
@@ -64,19 +73,19 @@ export default class Classifier extends React.Component {
       <Header as='h1'>Classifier</Header>
       <Grid>
         <Grid.Column width={11}>
-          <Image src={BackgroundImage} fluid="fluid"/>
+          <Image src={BackgroundImage} fluid/>
         </Grid.Column>
         <Grid.Column width={5}>
-          <Form onSubmit={this.handleSubmit}>
-            <Form.Dropdown placeholder='Select Shape' fluid="fluid" name='shape' selection="selection" value={shape} options={shapeOptions} onChange={this.handleChange}/>
+          <Form>
+            <Form.Dropdown placeholder='Select Shape' fluid name='shape' selection value={shape} options={shapeOptions} onChange={this.handleChange}/>
             <br/><br/>
-            <Form.Dropdown placeholder='Select Color' name='color' value={color} fluid="fluid" selection="selection" options={colorOptions} onChange={this.handleChange}/>
+            <Form.Dropdown placeholder='Select Color' name='color' value={color} fluid selection options={colorOptions} onChange={this.handleChange}/>
             <br/><br/>
             <Form.Input name='alphanumeric' value={alphanumeric} placeholder='Enter Alphanumeric' onChange={this.handleChange}/> {/* <h1>{this.state.Shape}</h1> */}
             <br/><br/>
             <Form.Group>
-              <Form.Button color='grey'>Clear</Form.Button>
-              <Form.Button color='green' content='Submit'/>
+              <Form.Button color='grey' content='Clear' onClick={this.handleClear} icon='close'/>
+              <Form.Button color='green' content='Submit' onClick={this.handleSubmit} icon='check'/>
             </Form.Group>
           </Form>
         </Grid.Column>
