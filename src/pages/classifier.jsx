@@ -47,10 +47,16 @@ export default class Classifier extends React.Component {
     this.handleClear = this.handleClear.bind(this)
   }
 
-  handleChange(data) {
-    this.setState({
-      [data.name]: data.value
-    })
+  handleChange(event, data) {
+    if(data.name === 'alphanumeric'){
+      this.setState({
+        [data.name]: data.value.toUpperCase().substr(-1)
+      })
+    }else{
+      this.setState({
+        [data.name]: data.value
+      })
+    }
   }
 
   handleSubmit() {
