@@ -47,7 +47,7 @@ export default class Classifier extends React.Component {
     this.handleClear = this.handleClear.bind(this)
   }
 
-  handleChange(event, data) {
+  handleChange(data) {
     this.setState({
       [data.name]: data.value
     })
