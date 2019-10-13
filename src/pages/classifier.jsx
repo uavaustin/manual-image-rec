@@ -83,9 +83,9 @@ export default class Classifier extends React.Component {
         </Grid.Column>
         <Grid.Column width={5}>
           <Form>
-            <Form.Dropdown placeholder='Select Shape' fluid name='shape' selection value={shape} options={shapeOptions} onChange={this.handleChange}/>
+            <Form.Dropdown placeholder='Select Shape' search fluid name='shape' selection value={shape} options={shapeOptions} onChange={this.handleChange}/>
             <br/><br/>
-            <Form.Dropdown placeholder='Select Color' name='color' value={color} fluid selection options={colorOptions} onChange={this.handleChange}/>
+            <Form.Dropdown placeholder='Select Color' search name='color' value={color} fluid selection options={colorOptions} onChange={this.handleChange}/>
             <br/><br/>
             <Form.Input name='alphanumeric' value={alphanumeric} placeholder='Enter Alphanumeric' onChange={this.handleChange}/> {/* <h1>{this.state.Shape}</h1> */}
             <br/><br/>
