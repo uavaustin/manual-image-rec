@@ -64,7 +64,7 @@ export default class Explorer extends React.Component{
                 </Table>
               </div>
             </Grid.Column>
-            <Grid.Column width="12">
+            <Grid.Column width="9">
               <Card fluid image={images[this.state.currentImageIndex]} description={"Image " + (this.state.currentImageIndex+1)} />
               <Card.Content extra style={{display:'flex', justifyContent: 'space-between'}}>
                 <Button name='left-button' icon='arrow left' onClick={this.handleArrowClick} disabled={this.state.currentImageIndex===0}/>
