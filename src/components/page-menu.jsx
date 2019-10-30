@@ -13,9 +13,6 @@ const PageMenu = () => (
     <Menu.Item as={NavItem} to='/app/explorer' name='Explorer' />
     <Menu.Item as={NavItem} to='/app/classifier' name='Classifier' />
     <Menu.Item as={NavItem} to='/app/targets' name='Targets' />
-    <Menu.Item as={NavItem} to='/app/map' name='Map' />
-    <Menu.Item as={NavItem} to='/app/live-view' name='Live View' />
-    <Menu.Item as={NavItem} to='/app/pipeline' name='Pipeline' />
   </Sidebar>
 );
 
