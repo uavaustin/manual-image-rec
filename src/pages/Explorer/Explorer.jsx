@@ -1,6 +1,5 @@
 import React from 'react';
-import { Container, Header, Grid, Card, Icon, Table, Image, Button } from 'semantic-ui-react';
-import TestImage from '../imagery/background_target.jpg'
+import { Container, Header, Grid, Card, Icon, Table, Button } from 'semantic-ui-react';
 import image1 from './images/image-1.jpg'
 import image2 from './images/image-2.jpg'
 import image3 from './images/image-3.jpg'

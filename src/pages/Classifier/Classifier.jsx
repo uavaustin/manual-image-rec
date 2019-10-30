@@ -60,7 +60,6 @@ export default class Classifier extends React.Component {
   }
 
   handleSubmit() {
-    const {shape, color, alphanumeric} = this.state
     console.log(this.state.shape, this.state.color, this.state.alphanumeric)
   }
 

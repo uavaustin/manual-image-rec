@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Header, Card, Icon, Image} from 'semantic-ui-react';
+import { Card, Image} from 'semantic-ui-react';
 
 
 export default class Target extends React.Component {
