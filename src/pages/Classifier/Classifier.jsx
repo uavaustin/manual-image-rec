@@ -40,7 +40,8 @@ export default class Classifier extends React.Component {
     this.state = {
       shape: '',
       color: '',
-      alphanumeric: ''
+      alphanumeric: '',
+      alphanumeric_color: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -60,19 +61,20 @@ export default class Classifier extends React.Component {
   }
 
   handleSubmit() {
-    console.log(this.state.shape, this.state.color, this.state.alphanumeric)
+    console.log(this.state.shape, this.state.color, this.state.alphanumeric, this.state.alphanumeric_color)
   }
 
   handleClear(){
     this.setState({
       shape: '',
       color: '',
-      alphanumeric: ''
+      alphanumeric: '',
+      alphanumeric_color: ''
     })
   }
 
   render() {
-    const {shape, color, alphanumeric} = this.state
+    const {shape, color, alphanumeric, alphanumeric_color} = this.state
 
     return (<Container id='page'>
       <Header as='h1'>Classifier</Header>
@@ -82,15 +84,19 @@ export default class Classifier extends React.Component {
         </Grid.Column>
         <Grid.Column width={5}>
           <Form>
-            <Form.Dropdown placeholder='Select Shape' search fluid name='shape' selection value={shape} options={shapeOptions} onChange={this.handleChange}/>
-            <br/><br/>
-            <Form.Dropdown placeholder='Select Color' search name='color' value={color} fluid selection options={colorOptions} onChange={this.handleChange}/>
-            <br/><br/>
-            <Form.Input name='alphanumeric' value={alphanumeric} placeholder='Enter Alphanumeric' onChange={this.handleChange}/> {/* <h1>{this.state.Shape}</h1> */}
-            <br/><br/>
-            <Form.Group>
-              <Form.Button color='grey' content='Clear' onClick={this.handleClear} icon='close'/>
-              <Form.Button color='green' content='Submit' onClick={this.handleSubmit} icon='check'/>
+            <Form.Group widths="equal">
+              <Form.Dropdown placeholder='Select Shape' search fluid name='shape' selection value={shape} options={shapeOptions} onChange={this.handleChange}/>
+              <Form.Dropdown placeholder='Select Color' search name='color' value={color} fluid selection options={colorOptions} onChange={this.handleChange}/>
+            </Form.Group>
+            <Form.Group widths="equal">
+              <Form.Input name='alphanumeric' value={alphanumeric} placeholder='Enter Alphanumeric' fluid onChange={this.handleChange}/>
+              <Form.Dropdown placeholder='Select Alpha Color' search name='alphanumeric_color' value={alphanumeric_color} fluid selection options={colorOptions} onChange={this.handleChange}/>
+            </Form.Group>
+            <br />
+            <br />
+            <Form.Group widths="equal">
+              <Form.Button color='grey' fluid content='Clear' onClick={this.handleClear} icon='close'/>
+              <Form.Button color='green' fluid content='Submit' onClick={this.handleSubmit} icon='check'/>
             </Form.Group>
           </Form>
         </Grid.Column>
