@@ -1,6 +1,6 @@
 import React from 'react';
 import {Container, Header, Grid, Image, Form} from 'semantic-ui-react';
-import BackgroundImage from '../imagery/background_target.jpg'
+import BackgroundImage from '../imagery/FlightImages/image (5).jpg'
 
 const shapeOptions = [
   {
@@ -100,16 +100,6 @@ export default class Classifier extends React.Component {
             </Form.Group>
           </Form>
         </Grid.Column>
-        <Grid.Row>
-          Info
-          <br/>
-          Size: 4200x3600
-          <br/>
-          Target number:
-          <br/>
-          Time arrived:
-          <br/>
-        </Grid.Row>
       </Grid>
     </Container>)
   }
