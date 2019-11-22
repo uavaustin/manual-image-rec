@@ -1,6 +1,22 @@
 import React from 'react';
-import {Container, Header, Grid, Image, Form} from 'semantic-ui-react';
-import BackgroundImage from '../imagery/FlightImages/image (5).jpg'
+import { ImageContext } from '../../contexts/ImageContext'
+import {Container, Header, Grid, Form, Card, Button} from 'semantic-ui-react';
+
+function importAll(r) {
+  return r.keys().map(r);
+}
+
+const importedImages = importAll(require.context('../imagery/FlightImages/', false, /\.(png|jpe?g|svg)$/));
+
+const imageObjects = importedImages.map((image, index) => {
+    return(
+      {
+        image: image,
+        name: "Image "+(index+1)
+      }
+    )
+  }
+)
 
 const shapeOptions = [
   {
@@ -35,6 +51,8 @@ const colorOptions = [
 ]
 
 export default class Classifier extends React.Component {
+  static contextType = ImageContext
+
   constructor() {
     super()
     this.state = {
@@ -60,7 +78,8 @@ export default class Classifier extends React.Component {
     }
   }
 
-  handleSubmit() {
+  handleSubmit(e) {
+    e.preventDefault()
     console.log(this.state.shape, this.state.color, this.state.alphanumeric, this.state.alphanumeric_color)
   }
 
@@ -74,13 +93,18 @@ export default class Classifier extends React.Component {
   }
 
   render() {
+    const { currentImageIndex, changeImageIndex } = this.context
     const {shape, color, alphanumeric, alphanumeric_color} = this.state
 
     return (<Container id='page'>
       <Header as='h1'>Classifier</Header>
       <Grid>
         <Grid.Column width={11}>
-          <Image src={BackgroundImage} fluid/>
+          <Card fluid image={imageObjects[currentImageIndex].image} description={imageObjects[currentImageIndex].name} />
+          <Card.Content extra style={{display:'flex', justifyContent: 'space-between'}}>
+            <Button name='left-button' icon='arrow left' onClick={() => changeImageIndex(currentImageIndex-1)} disabled={currentImageIndex===0}/>
+            <Button name='right-button' icon='arrow right' onClick={() => changeImageIndex(currentImageIndex+1)} disabled={currentImageIndex===imageObjects.length-1}/>
+          </Card.Content>
         </Grid.Column>
         <Grid.Column width={5}>
           <Form>

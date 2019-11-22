@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import ImageContextProvider from '../contexts/ImageContext'
 
 import PageMenu from './page-menu';
 import Classifier from '../pages/Classifier/Classifier';
@@ -15,8 +16,16 @@ const App = () => (
     <main>
       <Switch>
         <Redirect exact from='(/|/app)' to='/app/explorer' />
-        <Route exact path='/app/explorer' component={Explorer} />
-        <Route exact path='/app/classifier' component={Classifier} />
+        <Route exact path='/app/explorer'>
+          <ImageContextProvider>
+            <Explorer />
+          </ImageContextProvider>
+        </Route>
+        <Route exact path='/app/classifier'>
+          <ImageContextProvider>
+            <Classifier />
+          </ImageContextProvider>
+        </Route>
         <Route exact path='/app/targets' component={Targets} />
         <Route component={PageNotFound} />
       </Switch>

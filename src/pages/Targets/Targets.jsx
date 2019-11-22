@@ -1,6 +1,7 @@
 import React from 'react';
 import Target from "./Target/Target.js";
 import { Container, Header, Card } from 'semantic-ui-react';
+
 import image0 from "../imagery/shape-0.jpg";
 import image1 from "../imagery/shape-1.jpg";
 import image2 from "../imagery/shape-2.jpg";
