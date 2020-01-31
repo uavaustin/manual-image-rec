@@ -1,6 +1,6 @@
 import React from 'react';
 import { ImageContext } from '../../contexts/ImageContext'
-import {Container, Header, Grid, Form, Card, Button} from 'semantic-ui-react';
+import { Container, Header, Grid, Form, Card, Button, Table, Icon } from 'semantic-ui-react';
 import ReactCrop from 'react-image-crop';
 
 import 'react-image-crop/dist/ReactCrop.css';
@@ -179,7 +179,22 @@ export default class Classifier extends React.Component {
     return (<Container id='page'>
       <Header as='h1'>Classifier</Header>
       <Grid>
-        <Grid.Column width={11}>
+        <Grid.Column width={2}>
+          <div style={{height: '81vh', overflowY: 'auto'}}>
+            <Table celled striped selectable>
+              <Table.Body>
+                {imageObjects.map((image, index) =>
+                  <Table.Row key={index} style={{cursor: 'pointer'}} onClick={() => changeImageIndex(index)}>
+                    <Table.Cell active={index===currentImageIndex}>
+                      <Icon name='picture' /> {image.name}
+                    </Table.Cell>
+                  </Table.Row>
+                )}
+              </Table.Body>
+            </Table>
+          </div>
+        </Grid.Column>
+        <Grid.Column width={8}>
           {src && (
             <ReactCrop
               src={src}
@@ -196,7 +211,7 @@ export default class Classifier extends React.Component {
             <Button name='right-button' icon='arrow right' onClick={() => changeImageIndex(currentImageIndex+1)} disabled={currentImageIndex===imageObjects.length-1}/>
           </Card.Content>
         </Grid.Column>
-        <Grid.Column width={5}>
+        <Grid.Column width={6}>
           <Container fluid textAlign='center'>
             {(
               <img alt="Crop" style={{ width: '300px' }} src={croppedImageUrl ? croppedImageUrl : fillerImg} />
@@ -215,8 +230,9 @@ export default class Classifier extends React.Component {
             </Form.Group>
             <br />
             <br />
-            <Form.Group widths="equal">
+            <Form.Group widths='equal'>
               <Form.Button color='grey' fluid content='Clear' onClick={this.handleClear} icon='close'/>
+              <Form.Button color='yellow' fluid content='Autofill' onClick={this.handleSubmit} icon='search'/>
               <Form.Button color='green' fluid content='Submit' onClick={this.handleSubmit} icon='check'/>
             </Form.Group>
           </Form>
