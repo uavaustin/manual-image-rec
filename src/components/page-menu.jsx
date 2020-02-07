@@ -10,7 +10,6 @@ const PageMenu = () => (
     <Menu.Item as='div'>
       <Header inverted as='h3'>Manual Image Rec</Header>
     </Menu.Item>
-    <Menu.Item as={NavItem} to='/app/explorer' name='Explorer' />
     <Menu.Item as={NavItem} to='/app/classifier' name='Classifier' />
     <Menu.Item as={NavItem} to='/app/targets' name='Targets' />
   </Sidebar>
