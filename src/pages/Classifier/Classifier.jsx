@@ -2,26 +2,11 @@ import React from 'react';
 import { ImageContext } from '../../contexts/ImageContext'
 import { Container, Header, Grid, Form, Card, Button, Table, Icon } from 'semantic-ui-react';
 import ReactCrop from 'react-image-crop';
+import API from '../../api';
 
 import 'react-image-crop/dist/ReactCrop.css';
 
 import fillerImg from './../imagery/uava_logo.png'
-
-function importAll(r) {
-  return r.keys().map(r);
-}
-
-const importedImages = importAll(require.context('../imagery/FlightImages/', false, /\.(png|jpe?g|svg)$/));
-
-const imageObjects = importedImages.map((image, index) => {
-    return(
-      {
-        image: image,
-        name: "Image "+(index+1)
-      }
-    )
-  }
-)
 
 const shapeOptions = [
   {
@@ -68,10 +53,19 @@ export default class Classifier extends React.Component {
       crop: {
         aspect: 1,
       },
+      images: []
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleClear = this.handleClear.bind(this)
+  }
+
+  componentDidMount() {
+    setInterval(() => {
+      API.get('/api/images').then(images => {
+        this.setState({ images: images })
+      });
+    }, 1000);
   }
 
   handleChange(event, data) {
@@ -174,7 +168,10 @@ export default class Classifier extends React.Component {
   render() {
     const { currentImageIndex, changeImageIndex } = this.context
     const {shape, color, alphanumeric, alphanumeric_color, crop, croppedImageUrl} = this.state
-    const src = imageObjects[currentImageIndex].image
+    if(this.state.images.length == 0) {
+      return <h2>Loading...</h2>
+    }
+    const src = this.state.images[currentImageIndex].path
 
     return (<Container id='page'>
       <Header as='h1'>Classifier</Header>
@@ -183,7 +180,7 @@ export default class Classifier extends React.Component {
           <div style={{height: '81vh', overflowY: 'auto'}}>
             <Table celled striped selectable>
               <Table.Body>
-                {imageObjects.map((image, index) =>
+                {this.state.images.map((image, index) =>
                   <Table.Row key={index} style={{cursor: 'pointer'}} onClick={() => changeImageIndex(index)}>
                     <Table.Cell active={index===currentImageIndex}>
                       <Icon name='picture' /> {image.name}
@@ -208,7 +205,7 @@ export default class Classifier extends React.Component {
           )}
           <Card.Content extra style={{display:'flex', justifyContent: 'space-between'}}>
             <Button name='left-button' icon='arrow left' onClick={() => changeImageIndex(currentImageIndex-1)} disabled={currentImageIndex===0}/>
-            <Button name='right-button' icon='arrow right' onClick={() => changeImageIndex(currentImageIndex+1)} disabled={currentImageIndex===imageObjects.length-1}/>
+            <Button name='right-button' icon='arrow right' onClick={() => changeImageIndex(currentImageIndex+1)} disabled={currentImageIndex===this.state.images.length-1}/>
           </Card.Content>
         </Grid.Column>
         <Grid.Column width={6}>
