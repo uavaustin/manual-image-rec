@@ -46,7 +46,7 @@ const ExplorerTab = (props) => {
       <Grid.Column width={2} style={{height: '71.5vh', overflowY: 'auto'}}>
         <Table celled striped selectable>
           <Table.Body>
-            {imageObjects.map((image, index) =>
+            {props.images.map((image, index) =>
               <Table.Row key={index} style={{cursor: 'pointer'}} onClick={() => props.changeImageIndex(index)}>
                 <Table.Cell active={index===props.currentImageIndex}>
                   <Icon name='picture' /> {image.name}
@@ -246,7 +246,7 @@ export default class Classifier extends React.Component {
         </Grid.Column>
         <Grid.Column width={6}>
           <Tab panes={[
-            { menuItem: 'Explorer', render: () => <ExplorerTab currentImageIndex={currentImageIndex} changeImageIndex={changeImageIndex}/> },
+            { menuItem: 'Explorer', render: () => <ExplorerTab images={this.state.images} currentImageIndex={currentImageIndex} changeImageIndex={changeImageIndex}/> },
             { menuItem: 'Classifier', render: () => <ClassifierTab {...this.state} handleChange={this.handleChange} handleClear={this.handleClear} handleSubmit={this.handleSubmit}/> },
           ]} />
         </Grid.Column>
