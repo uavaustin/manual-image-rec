@@ -1,6 +1,6 @@
 import React from 'react';
 import { ImageContext } from '../../contexts/ImageContext'
-import { Container, Header, Grid, Form, Card, Button, Table, Icon } from 'semantic-ui-react';
+import { Container, Header, Grid, Form, Card, Button, Table, Icon, Tab } from 'semantic-ui-react';
 import ReactCrop from 'react-image-crop';
 
 import 'react-image-crop/dist/ReactCrop.css';
@@ -54,6 +54,57 @@ const colorOptions = [
     value: 'green'
   }
 ]
+
+const ExplorerTab = (props) => {
+  return(
+    <Tab.Pane>
+      <Grid.Column width={2} style={{height: '71.5vh', overflowY: 'auto'}}>
+        <Table celled striped selectable>
+          <Table.Body>
+            {imageObjects.map((image, index) =>
+              <Table.Row key={index} style={{cursor: 'pointer'}} onClick={() => props.changeImageIndex(index)}>
+                <Table.Cell active={index===props.currentImageIndex}>
+                  <Icon name='picture' /> {image.name}
+                </Table.Cell>
+              </Table.Row>
+            )}
+          </Table.Body>
+        </Table>
+      </Grid.Column>
+    </Tab.Pane>
+  )
+}
+
+const ClassifierTab = (props) => {
+  return(
+      <Tab.Pane>
+        <Container fluid textAlign='center'>
+          {(
+            <img alt="Crop" style={{ width: '300px' }} src={props.croppedImageUrl ? props.croppedImageUrl : fillerImg} />
+          )}
+          <br />
+          <br />
+        </Container>
+        <Form>
+          <Form.Group widths="equal">
+            <Form.Dropdown placeholder='Select Shape' search fluid name='shape' selection value={props.shape} options={shapeOptions} onChange={props.handleChange}/>
+            <Form.Dropdown placeholder='Select Color' search name='color' value={props.color} fluid selection options={colorOptions} onChange={props.handleChange}/>
+          </Form.Group>
+          <Form.Group widths="equal">
+            <Form.Input name='alphanumeric' value={props.alphanumeric} placeholder='Enter Alphanumeric' fluid onChange={props.handleChange}/>
+            <Form.Dropdown placeholder='Select Alpha Color' search name='alphanumeric_color' value={props.alphanumeric_color} fluid selection options={colorOptions} onChange={props.handleChange}/>
+          </Form.Group>
+          <br />
+          <br />
+          <Form.Group widths='equal'>
+            <Form.Button color='grey' fluid content='Clear' onClick={props.handleClear} icon='close'/>
+            <Form.Button color='yellow' fluid content='Autofill' onClick={props.handleSubmit} icon='search'/>
+            <Form.Button color='green' fluid content='Submit' onClick={props.handleSubmit} icon='check'/>
+          </Form.Group>
+        </Form>
+      </Tab.Pane>
+  )
+}
 
 export default class Classifier extends React.Component {
   static contextType = ImageContext
@@ -177,24 +228,9 @@ export default class Classifier extends React.Component {
     const src = imageObjects[currentImageIndex].image
 
     return (<Container id='page'>
-      <Header as='h1'>Classifier</Header>
+      <Header as='h1'>Manual Image Rec Home</Header>
       <Grid>
-        <Grid.Column width={2}>
-          <div style={{height: '81vh', overflowY: 'auto'}}>
-            <Table celled striped selectable>
-              <Table.Body>
-                {imageObjects.map((image, index) =>
-                  <Table.Row key={index} style={{cursor: 'pointer'}} onClick={() => changeImageIndex(index)}>
-                    <Table.Cell active={index===currentImageIndex}>
-                      <Icon name='picture' /> {image.name}
-                    </Table.Cell>
-                  </Table.Row>
-                )}
-              </Table.Body>
-            </Table>
-          </div>
-        </Grid.Column>
-        <Grid.Column width={8}>
+        <Grid.Column width={10}>
           {src && (
             <ReactCrop
               src={src}
@@ -212,30 +248,10 @@ export default class Classifier extends React.Component {
           </Card.Content>
         </Grid.Column>
         <Grid.Column width={6}>
-          <Container fluid textAlign='center'>
-            {(
-              <img alt="Crop" style={{ width: '300px' }} src={croppedImageUrl ? croppedImageUrl : fillerImg} />
-            )}
-            <br />
-            <br />
-          </Container>
-          <Form>
-            <Form.Group widths="equal">
-              <Form.Dropdown placeholder='Select Shape' search fluid name='shape' selection value={shape} options={shapeOptions} onChange={this.handleChange}/>
-              <Form.Dropdown placeholder='Select Color' search name='color' value={color} fluid selection options={colorOptions} onChange={this.handleChange}/>
-            </Form.Group>
-            <Form.Group widths="equal">
-              <Form.Input name='alphanumeric' value={alphanumeric} placeholder='Enter Alphanumeric' fluid onChange={this.handleChange}/>
-              <Form.Dropdown placeholder='Select Alpha Color' search name='alphanumeric_color' value={alphanumeric_color} fluid selection options={colorOptions} onChange={this.handleChange}/>
-            </Form.Group>
-            <br />
-            <br />
-            <Form.Group widths='equal'>
-              <Form.Button color='grey' fluid content='Clear' onClick={this.handleClear} icon='close'/>
-              <Form.Button color='yellow' fluid content='Autofill' onClick={this.handleSubmit} icon='search'/>
-              <Form.Button color='green' fluid content='Submit' onClick={this.handleSubmit} icon='check'/>
-            </Form.Group>
-          </Form>
+          <Tab panes={[
+            { menuItem: 'Explorer', render: () => <ExplorerTab currentImageIndex={currentImageIndex} changeImageIndex={changeImageIndex}/> },
+            { menuItem: 'Classifier', render: () => <ClassifierTab {...this.state} handleChange={this.handleChange} handleClear={this.handleClear} handleSubmit={this.handleSubmit}/> },
+          ]} />
         </Grid.Column>
       </Grid>
     </Container>)
