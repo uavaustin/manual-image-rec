@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "babel-loader": "^8.0.6",
+    "express": "^4.17.1",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-image-crop": "^8.4.0",
@@ -15,6 +16,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "start:server": "node server.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
