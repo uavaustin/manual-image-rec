@@ -1,6 +1,16 @@
 # Manual Image Recognition UI
 
-This is the Manual Recognition UI for Unmanned Aerial Vehicle Austin. It dynamically updates a list of images from a directory, and select targets in images and input properties of the target.<img style="float: right;" src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Test.png"><br /><br />
+<table>
+    <tr>
+        <td>
+            This is the Manual Recognition UI for Unmanned Aerial Vehicle Austin. It dynamically updates a list of images from a directory, and select targets in images and input properties of the target.
+        </td>
+        <td>
+            <img style="float: right;" src="https://uavaustin.org/assets/img/uava_logo_two_tone_dark.png">
+        </td>
+    </tr>
+</table>
+<br />
 
 ![Image](/demo.gif)
 
