@@ -4,7 +4,6 @@ import ImageContextProvider from '../contexts/ImageContext'
 
 import PageMenu from './page-menu';
 import Classifier from '../pages/Classifier/Classifier';
-import Explorer from '../pages/Explorer/Explorer';
 import PageNotFound from '../pages/page-not-found';
 import Targets from '../pages/Targets/Targets';
 
@@ -15,12 +14,7 @@ const App = () => (
     <PageMenu />
     <main>
       <Switch>
-        <Redirect exact from='(/|/app)' to='/app/explorer' />
-        <Route exact path='/app/explorer'>
-          <ImageContextProvider>
-            <Explorer />
-          </ImageContextProvider>
-        </Route>
+        <Redirect exact from='(/|/app)' to='/app/classifier' />
         <Route exact path='/app/classifier'>
           <ImageContextProvider>
             <Classifier />
