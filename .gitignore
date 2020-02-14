@@ -10,6 +10,7 @@
 
 # production
 /build
+/bucket
 
 # misc
 .DS_Store
